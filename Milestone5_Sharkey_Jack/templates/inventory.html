@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title>Inventory</title>
+	<link rel="stylesheet" href="../static/styles/site.css">
+</head>
+<body>
+	<form action="/search" method="post">
+        Search: <input type="text" name="search_query">
+        <input type="submit" value="Search">
+    </form>
+    <p> 
+    <a href="/addForm" class="btn">Create New Device</a>
+    </p>
+    <h1>Inventory</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Model</th>
+            <th>Serial Number</th>
+            <th>Price</th>
+            <th>Manufacture Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for device in devices %}
+        <tr>
+            <td>{{ device.id }}</td>
+            <td>{{ device.name }}</td>
+            <td>{{ device.model }}</td>
+            <td>{{ device.serial_number }}</td>
+            <td>{{ "{:.2f}".format(device.price) }}</td>
+            <td>{{ device.manufacture_date.strftime("%m-%d-%Y") }}</td>
+            <td>
+                <a class = "btn btn-info" href="/editForm/{{ device.id }}">Edit</a>
+                <a class = "btn btn-danger" href="/delete/{{ device.id }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+	
+</body>
+</html>
